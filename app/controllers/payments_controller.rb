@@ -5,7 +5,12 @@ class PaymentsController < ApplicationController
   end
 
   def create
-    render json: Loan.find(params[:loan_id]).payments.create(payment_params)
+    @payment = Loan.find(params[:loan_id]).payments.new(payment_params)
+    if @payment.save
+      render json: @payment
+    else
+      render json: { errors: @payment.errors.full_messages }, status: 422
+    end
   end
 
   private

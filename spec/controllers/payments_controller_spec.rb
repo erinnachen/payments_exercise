@@ -11,5 +11,14 @@ RSpec.describe PaymentsController, type: :controller do
       expect(response).to have_http_status(:ok)
       expect(json["amount"]).to eq "30.0"
     end
+
+    context 'payment amount greater than outstanding_balance' do
+      it 'responds with a 422' do
+        post :create, loan_id: loan.id, payment: { amount: 159.00 }
+        json = JSON.parse(response.body)
+
+        expect(response).to have_http_status(422)
+      end
+    end
   end
 end
