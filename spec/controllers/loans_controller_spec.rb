@@ -14,6 +14,7 @@ RSpec.describe LoansController, type: :controller do
     it 'responds with a 200' do
       get :show, id: loan.id
       json = JSON.parse(response.body)
+
       expect(response).to have_http_status(:ok)
       expect(json["outstanding_balance"]).to eq "100.0"
     end

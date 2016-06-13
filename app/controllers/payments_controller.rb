@@ -4,6 +4,14 @@ class PaymentsController < ApplicationController
     render json: 'not_found', status: :not_found
   end
 
+  def index
+    render json: Loan.find(params[:loan_id]).payments
+  end
+
+  def show
+    render json: Loan.find(params[:loan_id]).payments.find(params[:id])
+  end
+
   def create
     @payment = Loan.find(params[:loan_id]).payments.new(payment_params)
     if @payment.save
