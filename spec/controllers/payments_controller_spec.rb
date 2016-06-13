@@ -18,6 +18,7 @@ RSpec.describe PaymentsController, type: :controller do
         json = JSON.parse(response.body)
 
         expect(response).to have_http_status(422)
+        expect(json["errors"]).to eq "Amount can't be greater than loan's outstanding balance"
       end
     end
   end
